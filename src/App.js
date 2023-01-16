@@ -15,12 +15,16 @@ function App() {
   }, []);
 
   const fetchStatus = async () => {
-    let res = await axios.get(
-      "https://train-seat-booking-server2.onrender.com/status"
-    );
-    console.log(res.data);
+    try {
+      let res = await axios.get(
+        "https://train-seat-booking-server2.onrender.com/status"
+      );
+      console.log(res.data);
 
-    setstatus(res.data);
+      setstatus(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const bookSeats = async (no_of_seats) => {
@@ -38,12 +42,30 @@ function App() {
     }
   };
 
+  const resetStatus = async (e) => {
+    try {
+      e.preventDefault();
+
+      let res = await axios.get(
+        "https://train-seat-booking-server2.onrender.com/reset"
+      );
+      console.log(res.data);
+      fetchStatus();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="App">
       <BookingForm bookSeats={bookSeats} />
 
       {/* <SeatsView /> */}
       <Status currStats={status} />
+
+      {status.totalSeats > status.available && (
+        <button onClick={resetStatus}> reset</button>
+      )}
     </div>
   );
 }

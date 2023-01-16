@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function BookingForm({ bookSeats }) {
-  const [bookedSeats, setbookedSeats] = useState(0);
+  const [bookedSeats, setbookedSeats] = useState(1);
 
   return (
     <div className="bookingForm_wrap">
