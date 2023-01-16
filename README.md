@@ -1,3 +1,19 @@
+# TRAIN SEAT BOOKING CLIENT
+
+## deployed url
+
+- [LIVE VERSION](https://train-seat-booking-client.onrender.com/) ;
+
+## backend
+
+- [Git REPO](https://github.com/CODE-Y02/train-seat-booking-backend) ;
+
+## features
+
+- Book Seats
+- View Status
+- Reset featue for admin
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
