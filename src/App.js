@@ -15,7 +15,9 @@ function App() {
   }, []);
 
   const fetchStatus = async () => {
-    let res = await axios.get("http://localhost:3000/status");
+    let res = await axios.get(
+      "https://train-seat-booking-server2.onrender.com/status"
+    );
     console.log(res.data);
 
     setstatus(res.data);
@@ -23,9 +25,12 @@ function App() {
 
   const bookSeats = async (no_of_seats) => {
     try {
-      let res = await axios.post("http://localhost:3000/book", {
-        seats: no_of_seats,
-      });
+      let res = await axios.post(
+        "https://train-seat-booking-server2.onrender.com/book",
+        {
+          seats: no_of_seats,
+        }
+      );
       console.log(res.data);
       fetchStatus();
     } catch (error) {
