@@ -28,7 +28,7 @@ function App() {
         `${process.env.REACT_APP_BASE_URL}/bookingStatus`
       );
 
-      console.log(seatsRes);
+      // console.log(seatsRes);
       if (statusResponse.data) setstatus(statusResponse.data);
       if (seatsRes.data) setSeatsData(seatsRes.data);
     } catch (error) {
@@ -41,7 +41,7 @@ function App() {
       let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/book`, {
         seats: no_of_seats,
       });
-      console.log(res.data);
+      // console.log(res.data);
 
       alert("Seats Booked");
       fetchStatus();
