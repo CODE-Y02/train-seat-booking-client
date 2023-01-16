@@ -15,7 +15,7 @@ const Row = ({ seats, rowNo }) => {
       <p>{rowNo}</p>
       {seats.map((seat) => (
         <>
-          <Seat isBooked={seat.booked} seatNo={seat.no} />
+          <Seat isBooked={seat.isBooked} seatNo={seat.id} />
         </>
       ))}
     </div>

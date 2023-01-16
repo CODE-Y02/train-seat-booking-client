@@ -1,5 +1,5 @@
 import BookingForm from "./components/Booking/BookingForm";
-// import SeatsView from "./components/SeatsView/SeatsView";
+import SeatsView from "./components/SeatsView/SeatsView";
 
 import "./App.css";
 import axios from "axios";
@@ -10,18 +10,27 @@ function App() {
   // const [data, setData] = useState([]);
   const [status, setstatus] = useState({});
 
+  const [seatsData, setSeatsData] = useState([]);
+
   useEffect(() => {
     fetchStatus();
   }, []);
 
   const fetchStatus = async () => {
     try {
-      let res = await axios.get(
-        "https://train-seat-booking-server2.onrender.com/status"
+      console.log(process.env.REACT_APP_BASE_URL);
+      let statusResponse = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/status`
       );
-      console.log(res.data);
+      // console.log(statusResponse.data);
 
-      setstatus(res.data);
+      let seatsRes = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/bookingStatus`
+      );
+
+      console.log(seatsRes);
+      if (statusResponse.data) setstatus(statusResponse.data);
+      if (seatsRes.data) setSeatsData(seatsRes.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,13 +38,12 @@ function App() {
 
   const bookSeats = async (no_of_seats) => {
     try {
-      let res = await axios.post(
-        "https://train-seat-booking-server2.onrender.com/book",
-        {
-          seats: no_of_seats,
-        }
-      );
+      let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/book`, {
+        seats: no_of_seats,
+      });
       console.log(res.data);
+
+      alert("Seats Booked");
       fetchStatus();
     } catch (error) {
       console.log(error);
@@ -46,10 +54,8 @@ function App() {
     try {
       e.preventDefault();
 
-      let res = await axios.get(
-        "https://train-seat-booking-server2.onrender.com/reset"
-      );
-      console.log(res.data);
+      await axios.get(`${process.env.REACT_APP_BASE_URL}/reset`);
+
       fetchStatus();
     } catch (error) {
       console.log(error);
@@ -58,12 +64,14 @@ function App() {
 
   return (
     <div className="App">
-      <BookingForm bookSeats={bookSeats} />
+      <div>
+        <BookingForm bookSeats={bookSeats} />
+        <Status currStats={status} />
+      </div>
 
-      {/* <SeatsView /> */}
-      <Status currStats={status} />
+      <SeatsView seatsData={seatsData} />
 
-      {status.totalSeats > status.available && (
+      {status && status.available < status.totalSeats && (
         <button onClick={resetStatus}> reset</button>
       )}
     </div>

@@ -1,14 +1,14 @@
 import React from "react";
 
-import { dummy } from "../../Data/DUMMY";
+// import { dummy } from "../../Data/DUMMY";
 import Row from "./Row";
 
-const SeatsView = () => {
+const SeatsView = ({ seatsData }) => {
   return (
     <div>
       <h2>seats status </h2>
-      {dummy.map((data) => (
-        <Row seats={data.seats} rowNo={data.row} />
+      {seatsData.map((row) => (
+        <Row seats={row.seats} rowNo={row.id} key={row.id} />
       ))}
     </div>
   );
