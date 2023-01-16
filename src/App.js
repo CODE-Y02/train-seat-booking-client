@@ -68,11 +68,23 @@ function App() {
         <BookingForm bookSeats={bookSeats} />
         <Status currStats={status} />
       </div>
-
-      <SeatsView seatsData={seatsData} />
+      <div>
+        <SeatsView seatsData={seatsData} />
+      </div>
 
       {status && status.available < status.totalSeats && (
-        <button onClick={resetStatus}> reset</button>
+        <button
+          onClick={resetStatus}
+          style={{
+            padding: "0.5rem",
+            borderColor: "black",
+            color: "red",
+            fontWeight: "bolder",
+          }}
+        >
+          {" "}
+          reset
+        </button>
       )}
     </div>
   );
